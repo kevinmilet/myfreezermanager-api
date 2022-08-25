@@ -25,12 +25,13 @@ public class TypeProduit {
     private String nom;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "date_creation", nullable = false, updatable = false)
     @JsonIgnore
     private Instant dateCreation;
 
     @LastModifiedDate
     @JsonIgnore
+    @Column(name = "date_maj")
     private Instant dateMaj;
 
     public TypeProduit() {

@@ -34,11 +34,11 @@ public class Utilisateur {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     @JsonIgnore
-    private Instant dateCreation;
+    private Instant created_at;
 
     @LastModifiedDate
     @JsonIgnore
-    private Instant dateMaj;
+    private Instant updated_at;
 
     private String idCompte;
 
@@ -97,19 +97,19 @@ public class Utilisateur {
     }
 
     public Instant getDateCreation() {
-	return dateCreation;
+	return created_at;
     }
 
-    public void setDateCreation(Instant dateCreation) {
-	this.dateCreation = dateCreation;
+    public void setDateCreation(Instant created_at) {
+	this.created_at = created_at;
     }
 
     public Instant getDateMaj() {
-	return dateMaj;
+	return updated_at;
     }
 
-    public void setDateMaj(Instant dateMaj) {
-	this.dateMaj = dateMaj;
+    public void setDateMaj(Instant updated_at) {
+	this.updated_at = updated_at;
     }
 
     public String getIdCompte() {

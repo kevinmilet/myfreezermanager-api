@@ -1,8 +1,10 @@
 package fr.kevinmilet.myfreezermanager.service.impl;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+import fr.kevinmilet.myfreezermanager.controller.UtilisateurController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,46 +17,53 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UtilisateurServiceImpl implements UtilisateurService {
 
+    private final UtilisateurRepository utilisateurRepository;
+
     @Autowired
-    UtilisateurRepository utilisateurRepository;
+    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository) {
+        this.utilisateurRepository = utilisateurRepository;
+    }
 
     @Override
     public List<Utilisateur> getAllUtilisateurs() {
-	return utilisateurRepository.findAll();
+	    return utilisateurRepository.findAll();
     }
 
     @Override
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-	return utilisateurRepository.save(utilisateur);
+        utilisateur.setDateCreation(Instant.now());
+
+        return utilisateurRepository.save(utilisateur);
     }
 
     @Override
     public Utilisateur updateUtilisateur(Long id, Utilisateur utilisateurRequest) throws Exception {
-	Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new Exception());
+        Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(Exception::new);
 
-	utilisateur.setNom(utilisateurRequest.getNom());
-	utilisateur.setPrenom(utilisateurRequest.getPrenom());
-	utilisateur.setEmail(utilisateurRequest.getEmail());
+        utilisateur.setNom(utilisateurRequest.getNom());
+        utilisateur.setPrenom(utilisateurRequest.getPrenom());
+        utilisateur.setEmail(utilisateurRequest.getEmail());
+        utilisateur.setDateMaj(Instant.now());
 
-	return utilisateurRepository.save(utilisateur);
+        return utilisateurRepository.save(utilisateur);
     }
 
     @Override
     public void deleteUtilisateur(Long id) throws Exception {
-	Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new Exception());
+        Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(Exception::new);
 
-	utilisateurRepository.delete(utilisateur);
+        utilisateurRepository.delete(utilisateur);
     }
 
     @Override
     public Utilisateur getUtilisateurById(Long id) {
-	Optional<Utilisateur> result = utilisateurRepository.findById(id);
+        Optional<Utilisateur> result = utilisateurRepository.findById(id);
 
-	if (result.isPresent()) {
-	    return result.get();
-	}
+        if (result.isPresent()) {
+            return result.get();
+        }
 
-	return null;
+        return null;
     }
 
 //    public Utilisateur desactiverUtilisateur(Long id, Utilisateur utilisateurRequest) throws Exception {

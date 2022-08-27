@@ -22,11 +22,14 @@ import fr.kevinmilet.myfreezermanager.service.UtilisateurService;
 @RestController
 public class UtilisateurController {
 
-    @Autowired
-    UtilisateurService utilisateurService;
+    private final UtilisateurService utilisateurService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    public UtilisateurController(UtilisateurService utilisateurService, ModelMapper modelMapper) {
+        this.utilisateurService = utilisateurService;
+        this.modelMapper = modelMapper;
+    }
 
     @GetMapping(value = "/utilisateurs")
     public List<UtilisateurDto> getAllUtilisateurs() {
@@ -37,45 +40,45 @@ public class UtilisateurController {
 
     @GetMapping("/utilisateur/{id}")
     public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable(name = "id") Long id) {
-	Utilisateur utilisateur = utilisateurService.getUtilisateurById(id);
-	UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
+        Utilisateur utilisateur = utilisateurService.getUtilisateurById(id);
+        UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
 
-	return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/utilisateur/create")
     public ResponseEntity<UtilisateurDto> createUtilisateur(@RequestBody UtilisateurDto utilisateurDto) {
 
-	// convert DTO to entity
-	Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
+        // convert DTO to entity
+        Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
-	Utilisateur utilisateur = utilisateurService.createUtilisateur(request);
+        Utilisateur utilisateur = utilisateurService.createUtilisateur(request);
 
-	// convert entity to DTO
-	UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
+        // convert entity to DTO
+        UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
 
-	return new ResponseEntity<UtilisateurDto>(response, HttpStatus.CREATED);
+        return new ResponseEntity<UtilisateurDto>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/utilisateur/update/{id}")
     public ResponseEntity<UtilisateurDto> updateUtilisateur(@PathVariable long id,
 	    @RequestBody UtilisateurDto utilisateurDto) throws Exception {
 
-	// convert DTO to Entity
-	Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
+        // convert DTO to Entity
+        Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
-	Utilisateur post = utilisateurService.updateUtilisateur(id, request);
+        Utilisateur post = utilisateurService.updateUtilisateur(id, request);
 
-	// entity to DTO
-	UtilisateurDto response = modelMapper.map(post, UtilisateurDto.class);
+        // entity to DTO
+        UtilisateurDto response = modelMapper.map(post, UtilisateurDto.class);
 
-	return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("/utilisateur/delete/{id}")
     public ResponseEntity<String> suppressionPhysiqueUtilisateur(@PathVariable(name = "id") Long id) throws Exception {
-	utilisateurService.deleteUtilisateur(id);
-	return new ResponseEntity<String>("Utilisateur supprimé avec succes", HttpStatus.OK);
+        utilisateurService.deleteUtilisateur(id);
+        return new ResponseEntity<String>("Utilisateur supprimé avec succes", HttpStatus.OK);
     }
 
 //    @DeleteMapping("/utilisateur/soft_delete/{id}")

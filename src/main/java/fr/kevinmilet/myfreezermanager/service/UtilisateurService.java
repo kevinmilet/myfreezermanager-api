@@ -16,4 +16,6 @@ public interface UtilisateurService {
 
     Utilisateur getUtilisateurById(Long id);
 
+    Utilisateur findUtilisateurByEmail(String email);
+
 }

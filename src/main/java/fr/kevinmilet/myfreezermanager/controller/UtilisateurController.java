@@ -49,6 +49,11 @@ public class UtilisateurController {
     @PostMapping("/utilisateur/create")
     public ResponseEntity<UtilisateurDto> createUtilisateur(@RequestBody UtilisateurDto utilisateurDto) {
 
+        Utilisateur utilisateurExiste = utilisateurService.findUtilisateurByEmail(utilisateurDto.getEmail());
+
+        if (utilisateurExiste != null) {
+            return new ResponseEntity("User already existing", HttpStatus.BAD_REQUEST);
+        }
         // convert DTO to entity
         Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
@@ -67,10 +72,10 @@ public class UtilisateurController {
         // convert DTO to Entity
         Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
-        Utilisateur post = utilisateurService.updateUtilisateur(id, request);
+        Utilisateur utilisateur = utilisateurService.updateUtilisateur(id, request);
 
         // entity to DTO
-        UtilisateurDto response = modelMapper.map(post, UtilisateurDto.class);
+        UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
 
         return ResponseEntity.ok().body(response);
     }

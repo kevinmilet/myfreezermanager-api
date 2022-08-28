@@ -69,6 +69,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return null;
     }
 
+    @Override
+    public Utilisateur findUtilisateurByEmail(String email) {
+        Optional<Utilisateur> result = Optional.ofNullable(utilisateurRepository.findOneByEmail(email));
+
+        if (result.isPresent()) {
+            return result.get();
+        }
+
+        return null;
+    }
+
 //    public Utilisateur desactiverUtilisateur(Long id, Utilisateur utilisateurRequest) throws Exception {
 //	Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new Exception());
 //	

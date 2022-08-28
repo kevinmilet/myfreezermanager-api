@@ -3,8 +3,8 @@ package fr.kevinmilet.myfreezermanager.service.impl;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-import fr.kevinmilet.myfreezermanager.controller.UtilisateurController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +31,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
+        String uuid = UUID.randomUUID().toString();
+
+        utilisateur.setIdCompte(uuid);
         utilisateur.setDateCreation(Instant.now());
 
         return utilisateurRepository.save(utilisateur);

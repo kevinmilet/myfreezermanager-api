@@ -2,12 +2,7 @@ package fr.kevinmilet.myfreezermanager.entity;
 
 import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -39,6 +34,9 @@ public class Congelateur {
     private Instant dateMaj;
 
     private String idCongelateur;
+
+    @ManyToOne
+    private TypeCongelateur typeCongelateur;
 
     public Congelateur() {
 
@@ -90,7 +88,7 @@ public class Congelateur {
 	this.dateMaj = dateMaj;
     }
 
-    public String getIdCconglelateur() {
+    public String getIdCongelateur() {
 	return idCongelateur;
     }
 
@@ -98,4 +96,11 @@ public class Congelateur {
 	this.idCongelateur = idCongelateur;
     }
 
+    public TypeCongelateur getTypeCongelateur() {
+        return typeCongelateur;
+    }
+
+    public void setTypeCongelateur(TypeCongelateur typeCongelateur) {
+        this.typeCongelateur = typeCongelateur;
+    }
 }

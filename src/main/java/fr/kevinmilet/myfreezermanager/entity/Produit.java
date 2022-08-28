@@ -26,7 +26,7 @@ public class Produit {
 
     @NotBlank
     private String nom;
-    private int quantité;
+    private int quantite;
 
     @NotBlank
     @ManyToOne
@@ -54,10 +54,10 @@ public class Produit {
 
     }
 
-    public Produit(String nom, int quantité, TypeProduit typeProduit, LocalDate dateAjout, LocalDate dateRetrait,
+    public Produit(String nom, int quantite, TypeProduit typeProduit, LocalDate dateAjout, LocalDate dateRetrait,
 	    Congelateur congelateur, String idProduit) {
 	this.nom = nom;
-	this.quantité = quantité;
+	this.quantite = quantite;
 	this.typeProduit = typeProduit;
 	this.dateAjout = dateAjout;
 	this.dateRetrait = dateRetrait;
@@ -81,12 +81,12 @@ public class Produit {
 	this.nom = nom;
     }
 
-    public int getQuantité() {
-	return quantité;
+    public int getQuantite() {
+	return quantite;
     }
 
-    public void setQuantité(int quantité) {
-	this.quantité = quantité;
+    public void setQuantite(int quantite) {
+	this.quantite = quantite;
     }
 
     public TypeProduit getTypeProduit() {

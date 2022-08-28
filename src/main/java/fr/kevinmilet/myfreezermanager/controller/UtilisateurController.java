@@ -34,7 +34,7 @@ public class UtilisateurController {
     @GetMapping(value = "/utilisateurs")
     public List<UtilisateurDto> getAllUtilisateurs() {
 
-	return utilisateurService.getAllUtilisateurs().stream().map(post -> modelMapper.map(post, UtilisateurDto.class))
+	return utilisateurService.getAllUtilisateurs().stream().map(utilisateur -> modelMapper.map(utilisateur, UtilisateurDto.class))
 		.collect(Collectors.toList());
     }
 

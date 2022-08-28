@@ -1,21 +1,16 @@
 package fr.kevinmilet.myfreezermanager.entity;
 
-import java.time.Instant;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ * @author k.milet
+ */
 @Entity
-public class TypeProduit {
+public class TypeCongelateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,27 +19,27 @@ public class TypeProduit {
     @NotBlank
     private String nom;
 
-    public TypeProduit() {
+    public TypeCongelateur() {
+
     }
 
-    public TypeProduit(String nom) {
-	this.nom = nom;
+    public TypeCongelateur(String nom) {
+        this.nom = nom;
     }
 
     public Long getId() {
-	return id;
+        return id;
     }
 
     public void setId(Long id) {
-	this.id = id;
+        this.id = id;
     }
 
     public String getNom() {
-	return nom;
+        return nom;
     }
 
     public void setNom(String nom) {
-	this.nom = nom;
+        this.nom = nom;
     }
-
 }

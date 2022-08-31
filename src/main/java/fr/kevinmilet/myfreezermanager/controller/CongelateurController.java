@@ -78,8 +78,8 @@ public class CongelateurController {
         return new ResponseEntity<String>("Congélateur supprimé avec succes", HttpStatus.OK);
     }
 
-    @GetMapping("/utilsateur/congelateur/")
-    public List<CongelateurDto> getCongelateurPerUtilisateur(Utilisateur utilisateur) {
+    @GetMapping("/utilisateur/congelateur/")
+    public List<CongelateurDto> getCongelateurParUtilisateur(Utilisateur utilisateur) {
         return congelateurService.getCongelateurByUtilisateur(utilisateur)
                 .stream()
                 .map(congelateur -> modelMapper.map(congelateur, CongelateurDto.class))

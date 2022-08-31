@@ -1,9 +1,11 @@
 package fr.kevinmilet.myfreezermanager.dto;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * @author k.milet
  */
-public class TypeCongelateurDto {
+public class TypeProduitDto {
 
     private Long id;
     private String nom;

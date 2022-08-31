@@ -30,27 +30,27 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role updateRole(Long id, Role roleRequest) throws Exception {
-	Role role = roleRepository.findById(id).orElseThrow(() -> new Exception());
+        Role role = roleRepository.findById(id).orElseThrow(() -> new Exception());
 
-	role.setRole(roleRequest.getRole());
-	return roleRepository.save(role);
+        role.setRole(roleRequest.getRole());
+        return roleRepository.save(role);
     }
 
     @Override
     public void deleteRole(Long id) throws Exception {
-	Role role = roleRepository.findById(id).orElseThrow(() -> new Exception());
-	roleRepository.delete(role);
+        Role role = roleRepository.findById(id).orElseThrow(() -> new Exception());
+        roleRepository.delete(role);
     }
 
     @Override
     public Role getRoleById(Long id) {
-	Optional<Role> result = roleRepository.findById(id);
+        Optional<Role> result = roleRepository.findById(id);
 
-	if (result.isPresent()) {
-	    return result.get();
-	}
+        if (result.isPresent()) {
+            return result.get();
+        }
 
-	return null;
+        return null;
     }
 
 }

@@ -15,6 +15,8 @@ public class UtilisateurDto {
     private Role role;
     private Instant created_at;
     private Instant updated_at;
+    private String token;
+    private Boolean password_request;
 
     public Long getId() {
 	return id;
@@ -86,5 +88,21 @@ public class UtilisateurDto {
 
     public void setUpdated_at(Instant updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean getPassword_request() {
+        return password_request;
+    }
+
+    public void setPassword_request(Boolean password_request) {
+        this.password_request = password_request;
     }
 }

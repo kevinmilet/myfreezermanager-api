@@ -5,13 +5,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import fr.kevinmilet.myfreezermanager.entity.Role;
+import fr.kevinmilet.myfreezermanager.jwt.JwtController;
+import fr.kevinmilet.myfreezermanager.jwt.JwtFilter;
+import fr.kevinmilet.myfreezermanager.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
 import fr.kevinmilet.myfreezermanager.repository.UtilisateurRepository;
 import fr.kevinmilet.myfreezermanager.service.UtilisateurService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @Service
 @Slf4j
@@ -31,12 +42,27 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-        String uuid = UUID.randomUUID().toString();
 
-        utilisateur.setIdCompte(uuid);
-        utilisateur.setDateCreation(Instant.now());
+        String uuid = UUID.randomUUID().toString().replace("-", "");
 
-        return utilisateurRepository.save(utilisateur);
+        Utilisateur utilisateurToSave = new Utilisateur();
+        Role role = new Role();
+        role.setRole("user");
+        role.setId(2L);
+
+        utilisateurToSave.setEmail(utilisateur.getEmail());
+        utilisateurToSave.setPassword(utilisateur.getPassword());
+        utilisateurToSave.setNom(utilisateur.getNom());
+        utilisateurToSave.setPrenom(utilisateur.getPrenom());
+        utilisateurToSave.setIdCompte(uuid);
+        utilisateurToSave.setDateCreation(Instant.now());
+        utilisateurToSave.setPassword_request(Boolean.FALSE);
+        utilisateurToSave.setRole(role);
+        utilisateurToSave.setToken(null);
+
+        utilisateurRepository.save(utilisateurToSave);
+
+        return utilisateurToSave;
     }
 
     @Override

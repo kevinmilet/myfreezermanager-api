@@ -1,7 +1,6 @@
 package fr.kevinmilet.myfreezermanager.controller;
 
 import fr.kevinmilet.myfreezermanager.dto.CongelateurDto;
-import fr.kevinmilet.myfreezermanager.dto.UtilisateurDto;
 import fr.kevinmilet.myfreezermanager.entity.Congelateur;
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
 import org.modelmapper.ModelMapper;

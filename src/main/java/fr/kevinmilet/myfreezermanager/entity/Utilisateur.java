@@ -45,6 +45,10 @@ public class Utilisateur {
     @ManyToOne
     private Role role;
 
+    private String token;
+
+    private Boolean password_request;
+
     public Utilisateur() {
 
     }
@@ -128,4 +132,19 @@ public class Utilisateur {
 	this.role = role;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Boolean getPassword_request() {
+        return password_request;
+    }
+
+    public void setPassword_request(Boolean password_request) {
+        this.password_request = password_request;
+    }
 }

@@ -33,11 +33,9 @@ public class Utilisateur {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    @JsonIgnore
     private Instant created_at;
 
     @LastModifiedDate
-    @JsonIgnore
     private Instant updated_at;
 
     private String idCompte;

@@ -25,11 +25,9 @@ public class Congelateur {
 
     @CreatedDate
     @Column(name = "date_creation", nullable = false, updatable = false)
-    @JsonIgnore
     private Instant dateCreation;
 
     @LastModifiedDate
-    @JsonIgnore
     @Column(name = "date_maj")
     private Instant dateMaj;
 

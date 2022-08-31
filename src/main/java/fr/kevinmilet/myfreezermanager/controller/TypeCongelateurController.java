@@ -1,10 +1,9 @@
 package fr.kevinmilet.myfreezermanager.controller;
 
-import fr.kevinmilet.myfreezermanager.dto.CongelateurDto;
 import fr.kevinmilet.myfreezermanager.dto.TypeCongelateurDto;
-import fr.kevinmilet.myfreezermanager.entity.Congelateur;
 import fr.kevinmilet.myfreezermanager.entity.TypeCongelateur;
 import fr.kevinmilet.myfreezermanager.service.TypeCongelateurService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +17,7 @@ import java.util.stream.Collectors;
  * @author k.milet
  */
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class TypeCongelateurController {
 
     private final TypeCongelateurService typeCongelateurService;

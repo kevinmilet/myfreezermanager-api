@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
@@ -51,7 +52,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         role.setId(2L);
 
         utilisateurToSave.setEmail(utilisateur.getEmail());
-        utilisateurToSave.setPassword(utilisateur.getPassword());
+        utilisateurToSave.setPassword((new BCryptPasswordEncoder().encode(utilisateur.getPassword())));
         utilisateurToSave.setNom(utilisateur.getNom());
         utilisateurToSave.setPrenom(utilisateur.getPrenom());
         utilisateurToSave.setIdCompte(uuid);

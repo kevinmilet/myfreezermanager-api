@@ -1,6 +1,7 @@
 package fr.kevinmilet.myfreezermanager.controller;
 
 import fr.kevinmilet.myfreezermanager.entity.TypeProduit;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import fr.kevinmilet.myfreezermanager.service.TypeProduitService;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class TypeProduitController {
 
     private final TypeProduitService typeProduitService;

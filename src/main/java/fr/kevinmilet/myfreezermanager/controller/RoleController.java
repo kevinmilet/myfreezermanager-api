@@ -3,6 +3,7 @@ package fr.kevinmilet.myfreezermanager.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import fr.kevinmilet.myfreezermanager.entity.Role;
 import fr.kevinmilet.myfreezermanager.service.RoleService;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class RoleController {
 
     @Autowired

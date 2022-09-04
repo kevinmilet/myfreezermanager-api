@@ -5,15 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import fr.kevinmilet.myfreezermanager.entity.Role;
-import fr.kevinmilet.myfreezermanager.jwt.JwtController;
-import fr.kevinmilet.myfreezermanager.jwt.JwtFilter;
-import fr.kevinmilet.myfreezermanager.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +13,6 @@ import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
 import fr.kevinmilet.myfreezermanager.repository.UtilisateurRepository;
 import fr.kevinmilet.myfreezermanager.service.UtilisateurService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.Valid;
 
 @Service
 @Slf4j
@@ -47,19 +36,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         String uuid = UUID.randomUUID().toString().replace("-", "");
 
         Utilisateur utilisateurToSave = new Utilisateur();
-        Role role = new Role();
-        role.setRole("user");
-        role.setId(2L);
 
         utilisateurToSave.setEmail(utilisateur.getEmail());
         utilisateurToSave.setPassword((new BCryptPasswordEncoder().encode(utilisateur.getPassword())));
         utilisateurToSave.setNom(utilisateur.getNom());
         utilisateurToSave.setPrenom(utilisateur.getPrenom());
         utilisateurToSave.setIdCompte(uuid);
-        utilisateurToSave.setDateCreation(Instant.now());
+        utilisateurToSave.setCreated_at(Instant.now());
         utilisateurToSave.setPassword_request(Boolean.FALSE);
-        utilisateurToSave.setRole(role);
         utilisateurToSave.setToken(null);
+        utilisateurToSave.setActive(Boolean.TRUE);
+        utilisateurToSave.setAdmin(Boolean.FALSE);
 
         utilisateurRepository.save(utilisateurToSave);
 
@@ -73,7 +60,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         utilisateur.setNom(utilisateurRequest.getNom());
         utilisateur.setPrenom(utilisateurRequest.getPrenom());
         utilisateur.setEmail(utilisateurRequest.getEmail());
-        utilisateur.setDateMaj(Instant.now());
+        utilisateur.setUpdated_at(Instant.now());
 
         return utilisateurRepository.save(utilisateur);
     }

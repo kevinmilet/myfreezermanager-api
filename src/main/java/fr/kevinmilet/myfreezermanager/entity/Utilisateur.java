@@ -1,19 +1,11 @@
 package fr.kevinmilet.myfreezermanager.entity;
 
-import java.time.Instant;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 
 @Entity
 public class Utilisateur {
@@ -38,10 +30,13 @@ public class Utilisateur {
     @LastModifiedDate
     private Instant updated_at;
 
+    @NotBlank
     private String idCompte;
 
-    @ManyToOne
-    private Role role;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isAdmin;
+    @Column(columnDefinition = "boolean default true")
+    private Boolean isActive;
 
     private String token;
 
@@ -51,11 +46,13 @@ public class Utilisateur {
 
     }
 
-    public Utilisateur(String nom, String prenom, String email, String idCompte) {
+    public Utilisateur(String nom, String prenom, String email, String idCompte, Boolean isAdmin, Boolean isActive) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.idCompte = idCompte;
+        this.isAdmin = isActive;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -98,36 +95,12 @@ public class Utilisateur {
 	this.password = password;
     }
 
-    public Instant getDateCreation() {
-	return created_at;
-    }
-
-    public void setDateCreation(Instant created_at) {
-	this.created_at = created_at;
-    }
-
-    public Instant getDateMaj() {
-	return updated_at;
-    }
-
-    public void setDateMaj(Instant updated_at) {
-	this.updated_at = updated_at;
-    }
-
     public String getIdCompte() {
 	return idCompte;
     }
 
     public void setIdCompte(String idCompte) {
 	this.idCompte = idCompte;
-    }
-
-    public Role getRole() {
-	return role;
-    }
-
-    public void setRole(Role role) {
-	this.role = role;
     }
 
     public String getToken() {
@@ -144,5 +117,37 @@ public class Utilisateur {
 
     public void setPassword_request(Boolean password_request) {
         this.password_request = password_request;
+    }
+
+    public Instant getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Instant created_at) {
+        this.created_at = created_at;
+    }
+
+    public Instant getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Instant updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

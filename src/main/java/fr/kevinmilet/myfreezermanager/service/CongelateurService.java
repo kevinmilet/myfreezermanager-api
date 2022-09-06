@@ -2,14 +2,16 @@ package fr.kevinmilet.myfreezermanager.service;
 
 import fr.kevinmilet.myfreezermanager.entity.Congelateur;
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
+import org.springframework.http.ResponseEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface CongelateurService {
 
     List<Congelateur> getAllCongelateur();
 
-    Congelateur createCongelateur(Congelateur congelateur);
+    ResponseEntity createCongelateur(Congelateur congelateur, Principal principal);
 
     Congelateur updateCongelateur(Long id, Congelateur congelateur) throws Exception;
 
@@ -17,5 +19,4 @@ public interface CongelateurService {
 
     Congelateur getCongelateurById(Long id);
 
-    List<Congelateur> getCongelateurByUtilisateur(Utilisateur utilisateur);
 }

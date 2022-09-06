@@ -31,7 +31,7 @@ public class SecurityConfiguration {
     SecurityFilterChain web(HttpSecurity http) throws Exception {
 	http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-		.antMatchers("/").permitAll().antMatchers("/static/**/").permitAll().antMatchers("/utilisateur")
+		.antMatchers("/").permitAll().antMatchers("/static/**/").permitAll().antMatchers("/creer_utilisateur")
 		.permitAll().antMatchers("/authenticate").permitAll().antMatchers("/isConnected").permitAll()
 		.antMatchers("/v3/api-docs/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
 		.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-ui.html").permitAll()

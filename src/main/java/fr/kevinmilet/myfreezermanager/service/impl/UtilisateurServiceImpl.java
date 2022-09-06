@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public List<Utilisateur> getAllUtilisateurs() {
-	    return utilisateurRepository.findAll();
+        return utilisateurRepository.findAll();
     }
 
     @Override
@@ -94,10 +96,38 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return null;
     }
 
-//    public Utilisateur desactiverUtilisateur(Long id, Utilisateur utilisateurRequest) throws Exception {
-//	Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new Exception());
-//	
-//	utilisateur.setNom(utilisateurRequest.getNom());
-//    }
+    @Override
+    public Utilisateur activerUtilisateur(Long id, Utilisateur utilisateurRequest) throws Exception {
+        Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(Exception::new);
+
+        Boolean isActive = utilisateur.getActive();
+
+        if (isActive.equals(Boolean.TRUE)) {
+            utilisateur.setActive(Boolean.FALSE);
+        } else {
+            utilisateur.setActive(Boolean.TRUE);
+        }
+
+        utilisateur.setUpdated_at(Instant.now());
+
+        return utilisateurRepository.save(utilisateur);
+    }
+
+    @Override
+    public Utilisateur setUtilisateurAdmin(Long id, Utilisateur utilisateurRequest) throws Exception {
+        Utilisateur utilisateur = utilisateurRepository.findById(id).orElseThrow(Exception::new);
+
+        Boolean isActive = utilisateur.getAdmin();
+
+        if (isActive.equals(Boolean.FALSE)) {
+            utilisateur.setActive(Boolean.TRUE);
+        } else {
+            utilisateur.setActive(Boolean.FALSE);
+        }
+
+        utilisateur.setUpdated_at(Instant.now());
+
+        return utilisateurRepository.save(utilisateur);
+    }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import fr.kevinmilet.myfreezermanager.service.CongelateurService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +45,12 @@ public class CongelateurController {
     }
 
     @PostMapping("/congelateur/create")
-    public ResponseEntity<CongelateurDto> createCongelateur(@RequestBody CongelateurDto congelateurDto) {
+    public ResponseEntity<CongelateurDto> createCongelateur(@RequestBody CongelateurDto congelateurDto, Principal principal) {
 
         // convert DTO to entity
         Congelateur request = modelMapper.map(congelateurDto, Congelateur.class);
 
-        Congelateur congelateur = congelateurService.createCongelateur(request);
+        ResponseEntity congelateur = congelateurService.createCongelateur(request, principal);
 
         // convert entity to DTO
         CongelateurDto response = modelMapper.map(congelateur, CongelateurDto.class);
@@ -76,13 +77,5 @@ public class CongelateurController {
     public ResponseEntity<String> suppressionCongelateur(@PathVariable(name = "id") Long id) throws Exception {
         congelateurService.deleteCongelateur(id);
         return new ResponseEntity<String>("Congélateur supprimé avec succes", HttpStatus.OK);
-    }
-
-    @GetMapping("/utilisateur/congelateur/")
-    public List<CongelateurDto> getCongelateurParUtilisateur(Utilisateur utilisateur) {
-        return congelateurService.getCongelateurByUtilisateur(utilisateur)
-                .stream()
-                .map(congelateur -> modelMapper.map(congelateur, CongelateurDto.class))
-                .collect(Collectors.toList());
     }
 }

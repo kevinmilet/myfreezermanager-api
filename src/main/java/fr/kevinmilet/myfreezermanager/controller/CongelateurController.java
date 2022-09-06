@@ -41,8 +41,8 @@ public class CongelateurController {
     }
 
     @GetMapping("/congelateur/{id}")
-    public ResponseEntity<CongelateurDto> getCongelateurById(@PathVariable(name = "id") Long id) {
-        Congelateur congelateur = congelateurService.getCongelateurById(id);
+    public ResponseEntity<CongelateurDto> getCongelateurById(@PathVariable(name = "id") String id) {
+        Congelateur congelateur = congelateurService.getCongelateurById(Long.parseLong(id));
         CongelateurDto response = modelMapper.map(congelateur, CongelateurDto.class);
 
         return ResponseEntity.ok().body(response);
@@ -63,13 +63,13 @@ public class CongelateurController {
     }
 
     @PutMapping("/congelateur/update/{id}")
-    public ResponseEntity<CongelateurDto> updateCongelateur(@PathVariable long id,
+    public ResponseEntity<CongelateurDto> updateCongelateur(@PathVariable(name = "id") String id,
                                                             @RequestBody CongelateurDto congelateurDto) throws Exception {
 
         // convert DTO to Entity
         Congelateur request = modelMapper.map(congelateurDto, Congelateur.class);
 
-        Congelateur congelateur = congelateurService.updateCongelateur(id, request);
+        Congelateur congelateur = congelateurService.updateCongelateur(Long.parseLong(id), request);
 
         // entity to DTO
         CongelateurDto response = modelMapper.map(congelateur, CongelateurDto.class);
@@ -78,8 +78,8 @@ public class CongelateurController {
     }
 
     @DeleteMapping("/congelateur/delete/{id}")
-    public ResponseEntity<String> suppressionCongelateur(@PathVariable(name = "id") Long id) throws Exception {
-        congelateurService.deleteCongelateur(id);
+    public ResponseEntity<String> suppressionCongelateur(@PathVariable(name = "id") String id) throws Exception {
+        congelateurService.deleteCongelateur(Long.parseLong(id));
         return new ResponseEntity<String>("Congélateur supprimé avec succes", HttpStatus.OK);
     }
 }

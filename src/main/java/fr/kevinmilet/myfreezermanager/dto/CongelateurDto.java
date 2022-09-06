@@ -1,5 +1,6 @@
 package fr.kevinmilet.myfreezermanager.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.kevinmilet.myfreezermanager.entity.TypeCongelateur;
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
 import java.time.Instant;
@@ -11,6 +12,7 @@ public class CongelateurDto {
 
     private Long id;
     private String nom;
+    @JsonIgnore
     private Utilisateur utilisateur;
     private Instant dateCreation;
     private Instant dateMaj;

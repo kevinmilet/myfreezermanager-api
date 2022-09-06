@@ -3,13 +3,7 @@ package fr.kevinmilet.myfreezermanager.entity;
 import java.time.Instant;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -28,7 +22,6 @@ public class Produit {
     private String nom;
     private int quantite;
 
-    @NotBlank
     @ManyToOne
     private TypeProduit typeProduit;
 
@@ -37,6 +30,9 @@ public class Produit {
 
     @OneToOne
     private Congelateur congelateur;
+
+    @ManyToOne
+    private Utilisateur utilisateur;
 
     @CreatedDate
     @Column(name = "date_creation", nullable = false, updatable = false)
@@ -53,13 +49,14 @@ public class Produit {
     }
 
     public Produit(String nom, int quantite, TypeProduit typeProduit, LocalDate dateAjout, LocalDate dateRetrait,
-	    Congelateur congelateur, String idProduit) {
+	    Congelateur congelateur, Utilisateur utilisateur, String idProduit) {
 	this.nom = nom;
 	this.quantite = quantite;
 	this.typeProduit = typeProduit;
 	this.dateAjout = dateAjout;
 	this.dateRetrait = dateRetrait;
 	this.congelateur = congelateur;
+    this.utilisateur = utilisateur;
 	this.idProduit = idProduit;
     }
 
@@ -117,6 +114,14 @@ public class Produit {
 
     public void setCongelateur(Congelateur congelateur) {
 	this.congelateur = congelateur;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
     public Instant getDateCreation() {

@@ -61,21 +61,21 @@ public class AdminController {
     }
 
     @GetMapping("/utilisateur/{id}")
-    public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable(name = "id") Long id) {
-        Utilisateur utilisateur = utilisateurService.getUtilisateurById(id);
+    public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable(name = "id") String id) {
+        Utilisateur utilisateur = utilisateurService.getUtilisateurById(Long.parseLong(id));
         UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
 
         return ResponseEntity.ok().body(response);
     }
 
     @PutMapping("/utilisateur/update/{id}")
-    public ResponseEntity<UtilisateurDto> updateUtilisateur(@PathVariable long id,
+    public ResponseEntity<UtilisateurDto> updateUtilisateur(@PathVariable(name = "id") String id,
                                                             @RequestBody UtilisateurDto utilisateurDto) throws Exception {
 
         // convert DTO to Entity
         Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
-        Utilisateur utilisateur = utilisateurService.updateUtilisateur(id, request);
+        Utilisateur utilisateur = utilisateurService.updateUtilisateur(Long.parseLong(id), request);
 
         // entity to DTO
         UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
@@ -84,17 +84,17 @@ public class AdminController {
     }
 
     @DeleteMapping("/utilisateur/delete/{id}")
-    public ResponseEntity<String> suppressionPhysiqueUtilisateur(@PathVariable(name = "id") Long id) throws Exception {
-        utilisateurService.deleteUtilisateur(id);
+    public ResponseEntity<String> suppressionPhysiqueUtilisateur(@PathVariable(name = "id") String id) throws Exception {
+        utilisateurService.deleteUtilisateur(Long.parseLong(id));
         return new ResponseEntity<String>("Utilisateur supprimé avec succes", HttpStatus.OK);
     }
 
     @PutMapping("/utilisateur/activation/{id}")
-    public ResponseEntity<UtilisateurDto> desactiveUtilisateur(@PathVariable(name = "id") Long id, @RequestBody UtilisateurDto utilisateurDto) throws Exception {
+    public ResponseEntity<UtilisateurDto> desactiveUtilisateur(@PathVariable(name = "id") String id, @RequestBody UtilisateurDto utilisateurDto) throws Exception {
         // convert DTO to Entity
         Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
-        Utilisateur utilisateur = utilisateurService.activerUtilisateur(id, request);
+        Utilisateur utilisateur = utilisateurService.activerUtilisateur(Long.parseLong(id), request);
 
         // entity to DTO
         UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);
@@ -103,11 +103,11 @@ public class AdminController {
     }
 
     @PutMapping("/utilisateur/set_admin/{id}")
-    public ResponseEntity<UtilisateurDto> utilisateurRoleAdmin(@PathVariable(name = "id") Long id, @RequestBody UtilisateurDto utilisateurDto) throws Exception {
+    public ResponseEntity<UtilisateurDto> utilisateurRoleAdmin(@PathVariable(name = "id") String id, @RequestBody UtilisateurDto utilisateurDto) throws Exception {
         // convert DTO to Entity
         Utilisateur request = modelMapper.map(utilisateurDto, Utilisateur.class);
 
-        Utilisateur utilisateur = utilisateurService.setUtilisateurAdmin(id, request);
+        Utilisateur utilisateur = utilisateurService.setUtilisateurAdmin(Long.parseLong(id), request);
 
         // entity to DTO
         UtilisateurDto response = modelMapper.map(utilisateur, UtilisateurDto.class);

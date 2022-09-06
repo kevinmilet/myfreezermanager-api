@@ -37,8 +37,8 @@ public class TypeCongelateurController {
     }
 
     @GetMapping("/type_congelateur/{id}")
-    public ResponseEntity<TypeCongelateurDto> getTypeCongelateurById(@PathVariable(name = "id") Long id) {
-        TypeCongelateur typeCongelateur = typeCongelateurService.getTypeCongelateurById(id);
+    public ResponseEntity<TypeCongelateurDto> getTypeCongelateurById(@PathVariable(name = "id") String id) {
+        TypeCongelateur typeCongelateur = typeCongelateurService.getTypeCongelateurById(Long.parseLong(id));
         TypeCongelateurDto response = modelMapper.map(typeCongelateur, TypeCongelateurDto.class);
 
         return ResponseEntity.ok().body(response);
@@ -59,13 +59,13 @@ public class TypeCongelateurController {
     }
 
     @PutMapping("/type_congelateur/update/{id}")
-    public ResponseEntity<TypeCongelateurDto> updateTypeCongelateur(@PathVariable long id,
+    public ResponseEntity<TypeCongelateurDto> updateTypeCongelateur(@PathVariable(name="id") String id,
                                                             @RequestBody TypeCongelateurDto typeCongelateurDto) throws Exception {
 
         // convert DTO to Entity
         TypeCongelateur request = modelMapper.map(typeCongelateurDto, TypeCongelateur.class);
 
-        TypeCongelateur typeCongelateur = typeCongelateurService.updateTypeCongelateur(id, request);
+        TypeCongelateur typeCongelateur = typeCongelateurService.updateTypeCongelateur(Long.parseLong(id), request);
 
         // entity to DTO
         TypeCongelateurDto response = modelMapper.map(typeCongelateur, TypeCongelateurDto.class);
@@ -74,8 +74,8 @@ public class TypeCongelateurController {
     }
 
     @DeleteMapping("/type_congelateur/delete/{id}")
-    public ResponseEntity<String> suppressionTypeCongelateur(@PathVariable(name = "id") Long id) throws Exception {
-        typeCongelateurService.deleteTypeCongelateur(id);
+    public ResponseEntity<String> suppressionTypeCongelateur(@PathVariable(name = "id") String id) throws Exception {
+        typeCongelateurService.deleteTypeCongelateur(Long.parseLong(id));
         return new ResponseEntity<String>("Type de congélateur supprimé avec succes", HttpStatus.OK);
     }
 }

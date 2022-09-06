@@ -59,13 +59,13 @@ public class TypeProduitController {
     }
 
     @PutMapping("/types_produit/update/{id}")
-    public ResponseEntity<TypeProduitDto> updateTypePrtoduit(@PathVariable long id,
+    public ResponseEntity<TypeProduitDto> updateTypePrtoduit(@PathVariable(name = "id") String id,
                                                                     @RequestBody TypeProduitDto typeProduitDto) throws Exception {
 
         // convert DTO to Entity
         TypeProduit request = modelMapper.map(typeProduitDto, TypeProduit.class);
 
-        TypeProduit typeProduit = typeProduitService.updateTypeProduit(id, request);
+        TypeProduit typeProduit = typeProduitService.updateTypeProduit(Long.parseLong(id), request);
 
         // entity to DTO
         TypeProduitDto response = modelMapper.map(typeProduit, TypeProduitDto.class);
@@ -74,8 +74,8 @@ public class TypeProduitController {
     }
 
     @DeleteMapping("/types_produit/delete/{id}")
-    public ResponseEntity<String> suppressionTypeProduit(@PathVariable(name = "id") Long id) throws Exception {
-        typeProduitService.deleteTypeProduit(id);
+    public ResponseEntity<String> suppressionTypeProduit(@PathVariable(name = "id") String id) throws Exception {
+        typeProduitService.deleteTypeProduit(Long.parseLong(id));
         return new ResponseEntity<String>("Type de produit supprimé avec succes", HttpStatus.OK);
     }
 }

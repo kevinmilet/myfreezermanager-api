@@ -2,8 +2,6 @@ package fr.kevinmilet.myfreezermanager.controller;
 
 import fr.kevinmilet.myfreezermanager.dto.UtilisateurDto;
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
-import fr.kevinmilet.myfreezermanager.jwt.JwtController;
-import fr.kevinmilet.myfreezermanager.jwt.JwtUtils;
 import fr.kevinmilet.myfreezermanager.service.UtilisateurService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;

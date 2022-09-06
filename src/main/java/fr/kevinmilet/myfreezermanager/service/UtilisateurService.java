@@ -1,9 +1,8 @@
 package fr.kevinmilet.myfreezermanager.service;
 
-import java.util.List;
-
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface UtilisateurService {
 

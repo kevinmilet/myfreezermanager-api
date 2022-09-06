@@ -23,26 +23,26 @@ public class SecurityConfiguration {
 
     @Autowired
     public SecurityConfiguration(RestAuthenticationEntryPoint restAuthenticationEntryPoint, JwtFilter jwtFilter) {
-	this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
-	this.jwtFilter = jwtFilter;
+        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+        this.jwtFilter = jwtFilter;
     }
 
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
-	http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-		.antMatchers("/").permitAll().antMatchers("/static/**/").permitAll().antMatchers("/creer_utilisateur")
-		.permitAll().antMatchers("/authenticate").permitAll().antMatchers("/isConnected").permitAll()
-		.antMatchers("/v3/api-docs/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
-		.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-ui.html").permitAll()
-		.antMatchers("/webjars/**").permitAll().anyRequest().authenticated();
-	http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-	return http.build();
+        http.csrf().disable().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatchers("/").permitAll().antMatchers("/static/**/").permitAll().antMatchers("/creer_utilisateur")
+                .permitAll().antMatchers("/authenticate").permitAll().antMatchers("/isConnected").permitAll()
+                .antMatchers("/v3/api-docs/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/webjars/**").permitAll().anyRequest().authenticated();
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-	return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
 }

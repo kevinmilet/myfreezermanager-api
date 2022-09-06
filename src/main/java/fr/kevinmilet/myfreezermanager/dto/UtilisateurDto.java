@@ -1,5 +1,7 @@
 package fr.kevinmilet.myfreezermanager.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.Instant;
 
 public class UtilisateurDto {
@@ -8,6 +10,7 @@ public class UtilisateurDto {
     private String nom;
     private String prenom;
     private String email;
+    @JsonIgnore
     private String password;
     private String idCompte;
     private Instant created_at;

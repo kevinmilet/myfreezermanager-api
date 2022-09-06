@@ -1,7 +1,6 @@
 package fr.kevinmilet.myfreezermanager.service.impl;
 
 import fr.kevinmilet.myfreezermanager.controller.AdminController;
-import fr.kevinmilet.myfreezermanager.controller.UtilisateurController;
 import fr.kevinmilet.myfreezermanager.entity.Congelateur;
 import fr.kevinmilet.myfreezermanager.entity.TypeCongelateur;
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -44,6 +44,13 @@ public class CongelateurServiceImpl implements CongelateurService {
     @Override
     public List<Congelateur> getAllCongelateur() {
         return congelateurRepository.findAll();
+    }
+
+    @Override
+    public List<Congelateur> getCongelateurUtilisateur(Principal principal) {
+        Long utilisateurConnecteId = adminController.getUserConnectedId(principal);
+
+        return congelateurRepository.findCongelateurByUtilisateurId(utilisateurConnecteId);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package fr.kevinmilet.myfreezermanager.service;
 
+import fr.kevinmilet.myfreezermanager.dto.CongelateurDto;
 import fr.kevinmilet.myfreezermanager.entity.Congelateur;
-import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
@@ -11,7 +11,9 @@ public interface CongelateurService {
 
     List<Congelateur> getAllCongelateur();
 
-    ResponseEntity createCongelateur(Congelateur congelateur, Principal principal);
+    List<Congelateur> getCongelateurUtilisateur(Principal principal);
+
+    ResponseEntity<Congelateur> createCongelateur(Congelateur congelateur, Principal principal);
 
     Congelateur updateCongelateur(Long id, Congelateur congelateur) throws Exception;
 

@@ -2,15 +2,13 @@ package fr.kevinmilet.myfreezermanager.controller;
 
 import fr.kevinmilet.myfreezermanager.dto.CongelateurDto;
 import fr.kevinmilet.myfreezermanager.entity.Congelateur;
-import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
+import fr.kevinmilet.myfreezermanager.service.CongelateurService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import fr.kevinmilet.myfreezermanager.service.CongelateurService;
 
 import java.security.Principal;
 import java.util.List;
@@ -33,6 +31,12 @@ public class CongelateurController {
     public List<CongelateurDto> getAllCongelateur() {
 
         return congelateurService.getAllCongelateur().stream().map(congelateur -> modelMapper.map(congelateur, CongelateurDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/mes_congelateurs")
+    public List<CongelateurDto> getCongelateursUtilisateur(Principal principal) {
+        return  congelateurService.getCongelateurUtilisateur(principal).stream().map(congelateur -> modelMapper.map(congelateur, CongelateurDto.class))
                 .collect(Collectors.toList());
     }
 

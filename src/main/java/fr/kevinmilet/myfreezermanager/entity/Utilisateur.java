@@ -1,5 +1,6 @@
 package fr.kevinmilet.myfreezermanager.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -21,6 +22,7 @@ public class Utilisateur {
     @NotBlank
     private String email;
     @NotBlank
+    @JsonIgnore
     private String password;
 
     @CreatedDate

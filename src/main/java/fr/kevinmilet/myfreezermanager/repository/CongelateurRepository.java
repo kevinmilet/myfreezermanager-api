@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface CongelateurRepository extends JpaRepository<Congelateur, Long> {
 
-    List<Congelateur> findCongelateurByUtilisateur(Utilisateur utilisateur);
+    List<Congelateur> findCongelateurByUtilisateurId(Long id);
 }

@@ -33,15 +33,6 @@ public class AdminController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping(value = "/isConnected")
-    public ResponseEntity getUSerConnected() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return new ResponseEntity(((UserDetails) principal).getUsername(), HttpStatus.OK);
-        }
-        return new ResponseEntity("User is not connected", HttpStatus.FORBIDDEN);
-    }
-
     public Long getUserConnectedId(Principal principal) {
         if (!(principal instanceof UsernamePasswordAuthenticationToken)) {
             throw new RuntimeException("User not found");

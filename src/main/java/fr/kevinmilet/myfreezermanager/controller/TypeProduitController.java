@@ -16,6 +16,7 @@ import fr.kevinmilet.myfreezermanager.service.TypeProduitService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 public class TypeProduitController {

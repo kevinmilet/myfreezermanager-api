@@ -1,16 +1,22 @@
 package fr.kevinmilet.myfreezermanager.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.Instant;
 
+/**
+ * @author k.milet
+ */
+@Data
+@Builder
 public class UtilisateurDto {
 
     private Long id;
     private String nom;
     private String prenom;
     private String email;
-    @JsonIgnore
     private String password;
     private String idCompte;
     private Instant created_at;
@@ -19,6 +25,50 @@ public class UtilisateurDto {
     private Boolean password_request;
     private Boolean isAdmin;
     private Boolean isActive;
+
+    public static UtilisateurDto fromEntity(Utilisateur utilisateur) {
+        if (utilisateur == null) {
+            return null;
+        }
+
+        return UtilisateurDto.builder()
+                .id(utilisateur.getId())
+                .nom(utilisateur.getNom())
+                .prenom(utilisateur.getPrenom())
+                .email(utilisateur.getEmail())
+                .password(utilisateur.getPassword())
+                .idCompte(utilisateur.getIdCompte())
+                .created_at(utilisateur.getCreated_at())
+                .updated_at(utilisateur.getUpdated_at())
+                .token(utilisateur.getToken())
+                .password_request(utilisateur.getPassword_request())
+                .isAdmin(utilisateur.getAdmin())
+                .isActive(utilisateur.getActive())
+                .build();
+    }
+
+    public static Utilisateur toEntity(UtilisateurDto dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(dto.getId());
+        utilisateur.setNom(dto.getNom());
+        utilisateur.setPrenom(dto.getPrenom());
+        utilisateur.setEmail(dto.getEmail());
+        utilisateur.setPassword(dto.getPassword());
+        utilisateur.setPassword_request(dto.getPassword_request());
+        utilisateur.setIdCompte(dto.getIdCompte());
+        utilisateur.setCreated_at(dto.getCreated_at());
+        utilisateur.setUpdated_at(dto.getUpdated_at());
+        utilisateur.setToken(dto.getToken());
+        utilisateur.setPassword_request(dto.getPassword_request());
+        utilisateur.setAdmin(dto.getIsAdmin());
+        utilisateur.setActive(dto.getActive());
+
+        return utilisateur;
+    }
 
     public Long getId() {
 	return id;

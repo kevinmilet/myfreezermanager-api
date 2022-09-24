@@ -1,6 +1,6 @@
 package fr.kevinmilet.myfreezermanager.service;
 
-import fr.kevinmilet.myfreezermanager.entity.TypeProduit;
+import fr.kevinmilet.myfreezermanager.dto.TypeProduitDto;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface TypeProduitService {
 
-    List<TypeProduit> getAllTypeProduit();
+    List<TypeProduitDto> getAllTypeProduit();
 
-    TypeProduit createTypeProduit(TypeProduit typeProduit);
+    TypeProduitDto createTypeProduit(TypeProduitDto typeProduitDto);
 
-    TypeProduit updateTypeProduit(Long id, TypeProduit typeProduit) throws Exception;
+    TypeProduitDto updateTypeProduit(String id, TypeProduitDto typeProduitDto);
 
-    void deleteTypeProduit(Long Id) throws Exception;
+    TypeProduitDto getTypeProduitById(Long id);
 
-    TypeProduit getTypeProduitById(Long id);
+    void deleteTypeProduit(Long Id);
 }

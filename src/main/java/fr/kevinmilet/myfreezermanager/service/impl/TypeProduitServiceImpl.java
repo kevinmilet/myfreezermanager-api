@@ -1,5 +1,6 @@
 package fr.kevinmilet.myfreezermanager.service.impl;
 
+import fr.kevinmilet.myfreezermanager.dto.TypeProduitDto;
 import fr.kevinmilet.myfreezermanager.entity.TypeProduit;
 import fr.kevinmilet.myfreezermanager.repository.TypeProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import fr.kevinmilet.myfreezermanager.service.TypeProduitService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -23,36 +26,56 @@ public class TypeProduitServiceImpl implements TypeProduitService {
     }
 
     @Override
-    public List<TypeProduit> getAllTypeProduit() {
-        return (List<TypeProduit>) typeProduitRepository.findAll();
+    public List<TypeProduitDto> getAllTypeProduit() {
+
+        return typeProduitRepository.findAll().stream()
+                .map(TypeProduitDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public TypeProduit createTypeProduit(TypeProduit typeProduit) {
-        return typeProduitRepository.save(typeProduit);
+    public TypeProduitDto createTypeProduit(TypeProduitDto typeProduitDto) {
+
+        return TypeProduitDto.fromEntity(
+                typeProduitRepository.save(Objects.requireNonNull(TypeProduitDto.toEntity(typeProduitDto)))
+        );
+    }
+
+    public TypeProduitDto updateTypeProduit(String id, TypeProduitDto typeProduitDto) {
+        Optional<TypeProduit> typeProduit = typeProduitRepository.findById(Long.valueOf(id));
+
+        if (typeProduit.isPresent()) {
+            typeProduit.get().setNom(typeProduitDto.getNom());
+            return TypeProduitDto.fromEntity(
+                    typeProduitRepository.save(Objects.requireNonNull(TypeProduitDto.toEntity(typeProduitDto)))
+            );
+        }
+        return null;
     }
 
     @Override
-    public TypeProduit updateTypeProduit(Long id, TypeProduit typeProduitRequest) throws Exception {
-        TypeProduit typeProduit = typeProduitRepository.findById(id).orElseThrow(Exception::new);
+    public void deleteTypeProduit(Long id) {
+        if (id == null) {
+            log.error("Type Produit ID null");
+            return;
+        }
+        Optional<TypeProduit> typeProduit = typeProduitRepository.findById(id);
 
-        typeProduit.setNom(typeProduitRequest.getNom());
-        return typeProduitRepository.save(typeProduit);
+        typeProduit.ifPresent(typeProduitRepository::delete);
     }
 
     @Override
-    public void deleteTypeProduit(Long id) throws Exception {
-        TypeProduit typeProduit = typeProduitRepository.findById(id).orElseThrow(Exception::new);
+    public TypeProduitDto getTypeProduitById(Long id) {
+        if (id == null) {
+            log.error("Type Produit ID is null");
+            return null;
+        }
 
-        typeProduitRepository.delete(typeProduit);
-    }
-
-    @Override
-    public TypeProduit getTypeProduitById(Long id) {
         Optional<TypeProduit> result = typeProduitRepository.findById(id);
 
-        if (result.isPresent()) {
-            return result.get();
+        if (result.map(TypeProduitDto::fromEntity).isPresent()) {
+            return result.map(TypeProduitDto::fromEntity)
+                    .get();
         }
 
         return null;

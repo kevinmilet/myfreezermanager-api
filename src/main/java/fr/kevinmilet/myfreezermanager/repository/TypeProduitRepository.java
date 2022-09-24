@@ -1,9 +1,8 @@
 package fr.kevinmilet.myfreezermanager.repository;
 
-import org.springframework.data.repository.CrudRepository;
-
 import fr.kevinmilet.myfreezermanager.entity.TypeProduit;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TypeProduitRepository extends CrudRepository<TypeProduit, Long> {
+public interface TypeProduitRepository extends JpaRepository<TypeProduit, Long> {
 
 }

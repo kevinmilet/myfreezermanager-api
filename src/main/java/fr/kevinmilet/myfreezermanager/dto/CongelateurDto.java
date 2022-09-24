@@ -1,13 +1,19 @@
 package fr.kevinmilet.myfreezermanager.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.kevinmilet.myfreezermanager.entity.Congelateur;
 import fr.kevinmilet.myfreezermanager.entity.TypeCongelateur;
 import fr.kevinmilet.myfreezermanager.entity.Utilisateur;
+import lombok.Builder;
+import lombok.Data;
+
 import java.time.Instant;
 
 /**
  * @author k.milet
  */
+@Data
+@Builder
 public class CongelateurDto {
 
     private Long id;
@@ -19,7 +25,38 @@ public class CongelateurDto {
     private String idCongelateur;
     private TypeCongelateur typeCongelateur;
 
-    public Long getId() {
+    public static CongelateurDto fromEntity(Congelateur congelateur) {
+        if (congelateur == null) {
+            return null;
+        }
+
+        return CongelateurDto.builder()
+                .id(congelateur.getId())
+                .nom(congelateur.getNom())
+                .dateCreation(congelateur.getDateCreation())
+                .dateMaj(congelateur.getDateMaj())
+                .idCongelateur(congelateur.getIdCongelateur())
+                .typeCongelateur(congelateur.getTypeCongelateur())
+                .build();
+    }
+
+    public static Congelateur toEntity(CongelateurDto congelateurDto) {
+        if (congelateurDto == null) {
+            return null;
+        }
+
+        Congelateur congelateur = new Congelateur();
+        congelateur.setId(congelateurDto.getId());
+        congelateur.setNom(congelateurDto.getNom());
+        congelateur.setDateCreation(congelateurDto.getDateCreation());
+        congelateur.setDateMaj(congelateurDto.getDateMaj());
+        congelateur.setIdCongelateur(congelateurDto.getIdCongelateur());
+        congelateur.setTypeCongelateur(congelateurDto.getTypeCongelateur());
+
+        return congelateur;
+    }
+
+    /*public Long getId() {
         return id;
     }
 
@@ -73,5 +110,6 @@ public class CongelateurDto {
 
     public void setTypeCongelateur(TypeCongelateur typeCongelateur) {
         this.typeCongelateur = typeCongelateur;
-    }
+    }*/
+
 }

@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 /**
  * @author k.milet
  */
-@CrossOrigin
 @RestController
 @SecurityRequirement(name = "bearerAuth")
 public class TypeCongelateurController {

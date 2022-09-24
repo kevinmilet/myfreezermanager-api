@@ -1,6 +1,5 @@
 package fr.kevinmilet.myfreezermanager.service;
 
-import fr.kevinmilet.myfreezermanager.dto.CongelateurDto;
 import fr.kevinmilet.myfreezermanager.entity.Congelateur;
 import org.springframework.http.ResponseEntity;
 

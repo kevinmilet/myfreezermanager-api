@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
+@RequestMapping
 public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;

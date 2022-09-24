@@ -22,6 +22,7 @@ public class Utilisateur {
     @NotBlank
     private String email;
     @NotBlank
+    @JsonIgnore
     private String password;
 
     @CreatedDate

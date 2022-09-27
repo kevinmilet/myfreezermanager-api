@@ -1,5 +1,6 @@
 package fr.kevinmilet.myfreezermanager.service.impl;
 
+import fr.kevinmilet.myfreezermanager.dto.TypeCongelateurDto;
 import fr.kevinmilet.myfreezermanager.entity.TypeCongelateur;
 import fr.kevinmilet.myfreezermanager.repository.TypeCongelateurRepository;
 import fr.kevinmilet.myfreezermanager.service.TypeCongelateurService;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author k.milet
@@ -25,38 +28,51 @@ public class TypeCongelateurServiceImpl implements TypeCongelateurService {
     }
 
     @Override
-    public List<TypeCongelateur> getAllTypeCongelateur() {
-        return typeCongelateurRepository.findAll();
+    public List<TypeCongelateurDto> getAllTypeCongelateur() {
+
+        return typeCongelateurRepository.findAll().stream()
+                .map(TypeCongelateurDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public TypeCongelateur createTypeCongelateur(TypeCongelateur typeCongelateur) {
-        return typeCongelateurRepository.save(typeCongelateur);
+    public TypeCongelateurDto createTypeCongelateur(TypeCongelateurDto typeCongelateurDto) {
+        return TypeCongelateurDto.fromEntity(
+                typeCongelateurRepository.save(Objects.requireNonNull(TypeCongelateurDto.toEntity(typeCongelateurDto)))
+        );
     }
 
     @Override
-    public TypeCongelateur updateTypeCongelateur(Long id, TypeCongelateur typeCongelateurRequest) throws Exception {
-        TypeCongelateur typeCongelateur = typeCongelateurRepository.findById(id).orElseThrow(Exception::new);
-
-        typeCongelateur.setNom(typeCongelateurRequest.getNom());
-        return typeCongelateurRepository.save(typeCongelateur);
+    public TypeCongelateurDto updateTypeCongelateur(Long id, TypeCongelateurDto typeCongelateurDto) {
+            typeCongelateurRepository.updateTypeCongelateur(id, typeCongelateurDto.getNom());
+            return typeCongelateurDto;
     }
 
     @Override
-    public void deleteTypeCongelateur(Long id) throws Exception {
-        TypeCongelateur typeCongelateur = typeCongelateurRepository.findById(id).orElseThrow(Exception::new);
-
-        typeCongelateurRepository.delete(typeCongelateur);
-    }
-
-    @Override
-    public TypeCongelateur getTypeCongelateurById(Long id) {
-        Optional<TypeCongelateur> result = typeCongelateurRepository.findById(id);
-
-        if (result.isPresent()) {
-            return result.get();
+    public void deleteTypeCongelateur(Long id) {
+        if (id == null) {
+            log.error("Type congelateur Id is null");
+            return;
         }
 
+        Optional<TypeCongelateur> typeCongelateur = typeCongelateurRepository.findById(id);
+        typeCongelateur.ifPresent(typeCongelateurRepository::delete);
+
+    }
+
+    @Override
+    public TypeCongelateurDto getTypeCongelateurById(Long id) {
+        if (id == null) {
+            log.error("Type congelateur Id is null");
+            return null;
+        }
+
+        Optional<TypeCongelateur> result = typeCongelateurRepository.findById(id);
+
+        if (result.map(TypeCongelateurDto::fromEntity).isPresent()) {
+            return result.map(TypeCongelateurDto::fromEntity)
+                    .get();
+        }
         return null;
     }
 }

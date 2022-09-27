@@ -42,15 +42,8 @@ public class TypeProduitServiceImpl implements TypeProduitService {
     }
 
     public TypeProduitDto updateTypeProduit(String id, TypeProduitDto typeProduitDto) {
-        Optional<TypeProduit> typeProduit = typeProduitRepository.findById(Long.valueOf(id));
-
-        if (typeProduit.isPresent()) {
-            typeProduit.get().setNom(typeProduitDto.getNom());
-            return TypeProduitDto.fromEntity(
-                    typeProduitRepository.save(Objects.requireNonNull(TypeProduitDto.toEntity(typeProduitDto)))
-            );
-        }
-        return null;
+        typeProduitRepository.updateTypeProduit(Long.valueOf(id), typeProduitDto.getNom());
+        return typeProduitDto;
     }
 
     @Override

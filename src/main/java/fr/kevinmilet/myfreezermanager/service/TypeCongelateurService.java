@@ -1,6 +1,6 @@
 package fr.kevinmilet.myfreezermanager.service;
 
-import fr.kevinmilet.myfreezermanager.entity.TypeCongelateur;
+import fr.kevinmilet.myfreezermanager.dto.TypeCongelateurDto;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface TypeCongelateurService {
 
-    List<TypeCongelateur> getAllTypeCongelateur();
+    List<TypeCongelateurDto> getAllTypeCongelateur();
 
-    TypeCongelateur createTypeCongelateur(TypeCongelateur typeCongelateur);
+    TypeCongelateurDto createTypeCongelateur(TypeCongelateurDto typeCongelateurDto);
 
-    TypeCongelateur updateTypeCongelateur(Long id, TypeCongelateur typeCongelateur) throws Exception;
+    TypeCongelateurDto updateTypeCongelateur(Long id, TypeCongelateurDto typeCongelateurDto);
 
-    void deleteTypeCongelateur(Long Id) throws Exception;
+    void deleteTypeCongelateur(Long Id);
 
-    TypeCongelateur getTypeCongelateurById(Long id);
+    TypeCongelateurDto getTypeCongelateurById(Long id);
 }
